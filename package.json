@@ -2,14 +2,17 @@
   "name": "replace-all-words",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "dist/index.js",
   "scripts": {
     "prettier": "prettier --write '**/*'",
     "lint": "eslint src",
     "lint-fix": "eslint src --fix",
-    "format": "npm run prettier && npm run lint-fix",
+    "fmt": "npm run prettier && npm run lint-fix",
     "build": "tsc -p ./tsconfig.build.json",
     "test": "jest"
+  },
+  "bin": {
+    "replace-all-words": "./bin/adapter/entry-points/cli/index.js"
   },
   "repository": {
     "type": "git",
@@ -36,6 +39,7 @@
   "devDependencies": {
     "@semantic-release/changelog": "^6.0.3",
     "@semantic-release/git": "^10.0.1",
+    "@types/commander": "^2.12.2",
     "@types/jest": "^29.5.0",
     "@typescript-eslint/eslint-plugin": "^5.56.0",
     "@typescript-eslint/parser": "^5.56.0",
@@ -52,6 +56,7 @@
   },
   "dependencies": {
     "change-case-all": "^1.0.15",
+    "commander": "^10.0.1",
     "dotenv": "^16.0.3"
   }
 }
