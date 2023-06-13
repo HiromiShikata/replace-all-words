@@ -4,5 +4,4 @@ export interface StringConvertor {
   pascalCase(str: string): string;
   kebabCase(str: string): string;
   screamSnakeCase(str: string): string;
-  convert(str: string, beforeWord: string, afterWord: string): string;
 }
