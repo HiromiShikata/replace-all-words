@@ -84,27 +84,27 @@ export class ReplaceAllWords {
   convert = (str: string, beforeWord: string, afterWord: string): string => {
     if (str.includes(this.stringConvertor.camelCase(beforeWord))) {
       return str.replace(
-        this.stringConvertor.camelCase(beforeWord),
+        new RegExp(this.stringConvertor.camelCase(beforeWord), 'g'),
         this.stringConvertor.camelCase(afterWord),
       );
     } else if (str.includes(this.stringConvertor.snakeCase(beforeWord))) {
       return str.replace(
-        this.stringConvertor.snakeCase(beforeWord),
+        new RegExp(this.stringConvertor.snakeCase(beforeWord), 'g'),
         this.stringConvertor.snakeCase(afterWord),
       );
     } else if (str.includes(this.stringConvertor.pascalCase(beforeWord))) {
       return str.replace(
-        this.stringConvertor.pascalCase(beforeWord),
+        new RegExp(this.stringConvertor.pascalCase(beforeWord), 'g'),
         this.stringConvertor.pascalCase(afterWord),
       );
     } else if (str.includes(paramCase(beforeWord))) {
       return str.replace(
-        paramCase(beforeWord),
+        new RegExp(paramCase(beforeWord), 'g'),
         this.stringConvertor.kebabCase(afterWord),
       );
     } else if (str.includes(this.stringConvertor.screamSnakeCase(beforeWord))) {
       return str.replace(
-        this.stringConvertor.screamSnakeCase(beforeWord),
+        new RegExp(this.stringConvertor.screamSnakeCase(beforeWord), 'g'),
         this.stringConvertor.screamSnakeCase(afterWord),
       );
     } else {
