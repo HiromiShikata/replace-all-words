@@ -1,3 +1,17 @@
+# [1.1.0](https://github.com/HiromiShikata/replace-all-words/compare/v1.0.1...v1.1.0) (2023-06-14)
+
+
+### Bug Fixes
+
+* create changelog by gh-actions ([eb2ac09](https://github.com/HiromiShikata/replace-all-words/commit/eb2ac09e25c5fc8b8eb109439b0bb54694074ca0))
+* use fmt instead of old format ([fd67f90](https://github.com/HiromiShikata/replace-all-words/commit/fd67f90da1a64b1cd67c2476d9ccdfc99b19c162))
+* use GH_TOKEN when checkout to commit automatically ([de33ec5](https://github.com/HiromiShikata/replace-all-words/commit/de33ec58a9bf146bd9090a047c780c510a9dfefb))
+
+
+### Features
+
+* add message when finished ([a90eeba](https://github.com/HiromiShikata/replace-all-words/commit/a90eeba062cd357eab8d1084aa485c8768823b17))
+
 ## [1.0.1](https://github.com/HiromiShikata/replace-all-words/compare/v1.0.0...v1.0.1) (2023-06-14)
 
 
