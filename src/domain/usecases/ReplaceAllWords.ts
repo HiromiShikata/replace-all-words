@@ -16,7 +16,6 @@ export class ReplaceAllWords {
   ): Promise<void> => {
     const files = this.fileRepository.readdirSync(targetDirectoryPath);
 
-    // First, change all directory names.
     for (let i = 0; i < files.length; i++) {
       const file = files[i];
       const oldPath = path.join(targetDirectoryPath, file);
