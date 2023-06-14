@@ -82,33 +82,43 @@ export class ReplaceAllWords {
     return this.convert(content, beforeWord, afterWord);
   };
   convert = (str: string, beforeWord: string, afterWord: string): string => {
-    if (str.includes(this.stringConvertor.camelCase(beforeWord))) {
-      return str.replace(
+    let result = str;
+
+    if (result.includes(this.stringConvertor.camelCase(beforeWord))) {
+      result = result.replace(
         new RegExp(this.stringConvertor.camelCase(beforeWord), 'g'),
         this.stringConvertor.camelCase(afterWord),
       );
-    } else if (str.includes(this.stringConvertor.snakeCase(beforeWord))) {
-      return str.replace(
+    }
+
+    if (result.includes(this.stringConvertor.snakeCase(beforeWord))) {
+      result = result.replace(
         new RegExp(this.stringConvertor.snakeCase(beforeWord), 'g'),
         this.stringConvertor.snakeCase(afterWord),
       );
-    } else if (str.includes(this.stringConvertor.pascalCase(beforeWord))) {
-      return str.replace(
+    }
+
+    if (result.includes(this.stringConvertor.pascalCase(beforeWord))) {
+      result = result.replace(
         new RegExp(this.stringConvertor.pascalCase(beforeWord), 'g'),
         this.stringConvertor.pascalCase(afterWord),
       );
-    } else if (str.includes(paramCase(beforeWord))) {
-      return str.replace(
+    }
+
+    if (result.includes(paramCase(beforeWord))) {
+      result = result.replace(
         new RegExp(paramCase(beforeWord), 'g'),
         this.stringConvertor.kebabCase(afterWord),
       );
-    } else if (str.includes(this.stringConvertor.screamSnakeCase(beforeWord))) {
-      return str.replace(
+    }
+
+    if (result.includes(this.stringConvertor.screamSnakeCase(beforeWord))) {
+      result = result.replace(
         new RegExp(this.stringConvertor.screamSnakeCase(beforeWord), 'g'),
         this.stringConvertor.screamSnakeCase(afterWord),
       );
-    } else {
-      return str;
     }
+
+    return result;
   };
 }
