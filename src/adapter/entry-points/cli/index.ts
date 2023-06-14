@@ -25,6 +25,7 @@ program
       );
       const res = await useCase.run(targetDirectoryPath, beforeWord, afterWord);
       console.log(JSON.stringify(res));
+      console.log(`✨🚀 Done 🚀✨`)
     },
   );
 if (process.argv) {
