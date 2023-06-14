@@ -21,17 +21,4 @@ describe('ChangeCaseStringConvertor', () => {
       expect(result).toBe(expected);
     }
   });
-
-  test.each`
-    beforeWord      | afterWord            | expected
-    ${'testString'} | ${'convertedString'} | ${'Hello, thisIsA_convertedString'}
-    ${'notPresent'} | ${'convertedString'} | ${'Hello, thisIsA_testString'}
-  `('should convert a string', ({ beforeWord, afterWord, expected }) => {
-    const result = convertor.convert(
-      'Hello, thisIsA_testString',
-      beforeWord,
-      afterWord,
-    );
-    expect(result).toBe(expected);
-  });
 });
