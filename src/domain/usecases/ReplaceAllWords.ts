@@ -1,7 +1,6 @@
 import { FileRepository } from './adapter-interfaces/FileRepository';
 import { StringConvertor } from './adapter-interfaces/StringConvertor';
 import * as path from 'path';
-import { paramCase } from 'change-case-all';
 
 export class ReplaceAllWords {
   constructor(
@@ -104,9 +103,9 @@ export class ReplaceAllWords {
       );
     }
 
-    if (result.includes(paramCase(beforeWord))) {
+    if (result.includes(this.stringConvertor.paramCase(beforeWord))) {
       result = result.replace(
-        new RegExp(paramCase(beforeWord), 'g'),
+        new RegExp(this.stringConvertor.paramCase(beforeWord), 'g'),
         this.stringConvertor.kebabCase(afterWord),
       );
     }
