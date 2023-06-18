@@ -34,11 +34,12 @@ In addition, our domain layer should not depend on the adapter layer. Please ens
 
 We aim for a type-safe programming style, so please avoid using `any` or `as`. Instead, use type guards or other means to determine types.
 
-### Comments
+### Code Style
 
 - As a general rule, please refrain from writing comments whenever possible.
   - Your first approach should be to make your variable and function names as descriptive and self-explanatory as possible.
   - Only when this is not sufficient, and the functionality or purpose of the code is not immediately clear, should comments be used.
+- We encourage the use of the arrow function style as much as possible. It offers a more concise syntax and aligns with contemporary JavaScript practices. Please favor this style when contributing to our codebase.
 
 ## Writing Tests
 
