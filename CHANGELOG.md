@@ -1,3 +1,10 @@
+## [1.1.1](https://github.com/HiromiShikata/replace-all-words/compare/v1.1.0...v1.1.1) (2023-06-18)
+
+
+### Bug Fixes
+
+* change outDir to bin ([eb40d39](https://github.com/HiromiShikata/replace-all-words/commit/eb40d3997d7f3d23692f9fc9777dbae812116ee5))
+
 # [1.1.0](https://github.com/HiromiShikata/replace-all-words/compare/v1.0.1...v1.1.0) (2023-06-14)
 
 
