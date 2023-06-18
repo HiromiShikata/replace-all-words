@@ -10,6 +10,8 @@
     "fmt": "npm run prettier && npm run lint-fix",
     "build": "tsc -p ./tsconfig.build.json",
     "build-commit": "tsc -p ./tsconfig.build.json && git add bin && git commit -m'autogen: re-build' -m'npm run build'",
+    "upgrade-deps": "npx npm-check-updates -u && rm -rf node_modules/ package-lock.json && npm i",
+    "upgrade-deps-commit": "npm run upgrade-deps && git add package.json package-lock.json && git commit -m'chore(deps): upgrade dependencies' -m'npm run upgrade-deps'",
     "test": "jest"
   },
   "bin": {
