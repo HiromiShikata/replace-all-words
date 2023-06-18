@@ -21,4 +21,7 @@ export class ChangeCaseStringConvertor implements StringConvertor {
   screamSnakeCase = (str: string): string => {
     return snakeCase(str).toUpperCase();
   };
+  paramCase = (str: string): string => {
+    return paramCase(str);
+  };
 }
