@@ -34,6 +34,12 @@ In addition, our domain layer should not depend on the adapter layer. Please ens
 
 We aim for a type-safe programming style, so please avoid using `any` or `as`. Instead, use type guards or other means to determine types.
 
+### Comments
+
+- As a general rule, please refrain from writing comments whenever possible.
+  - Your first approach should be to make your variable and function names as descriptive and self-explanatory as possible.
+  - Only when this is not sufficient, and the functionality or purpose of the code is not immediately clear, should comments be used.
+
 ## Writing Tests
 
 Testing is a crucial part of our development process. We expect all code contributions to be accompanied by corresponding tests. This helps us maintain the quality of the project and catch any potential issues early.
