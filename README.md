@@ -21,6 +21,7 @@ Arguments:
 Options:
 
 ```
+
 replace-all-words finds and replaces all occurrences of a word (`beforeWord`) with another word (`afterWord`) in the files within the specified target directory. The unique thing is that it preserves the original casing format of the words. So, if your `beforeWord` is in camelCase, the replaced `afterWord` will also be in camelCase. Similarly, if the `beforeWord` is in snake_case, the replaced `afterWord` will be in snake_case. 🐍
 
 This comes in super handy while:
