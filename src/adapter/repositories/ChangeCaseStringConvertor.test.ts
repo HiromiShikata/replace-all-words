@@ -10,7 +10,7 @@ describe('ChangeCaseStringConvertor', () => {
   test.each`
     method               | expected
     ${'camelCase'}       | ${'testString'}
-    ${'snakeCase'}       | ${'test_string'}
+    ${'paramCase'}       | ${'test_string'}
     ${'pascalCase'}      | ${'TestString'}
     ${'kebabCase'}       | ${'test-string'}
     ${'screamSnakeCase'} | ${'TEST_STRING'}
