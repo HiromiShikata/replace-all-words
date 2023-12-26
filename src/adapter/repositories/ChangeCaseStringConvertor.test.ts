@@ -10,15 +10,21 @@ describe('ChangeCaseStringConvertor', () => {
   test.each`
     method               | expected
     ${'camelCase'}       | ${'testString'}
-    ${'snakeCase'}       | ${'test_string'}
+    ${'paramCase'}       | ${'test-string'}
     ${'pascalCase'}      | ${'TestString'}
     ${'kebabCase'}       | ${'test-string'}
     ${'screamSnakeCase'} | ${'TEST_STRING'}
-  `('should convert to $method', ({ method, expected }) => {
-    if (method !== 'convert') {
-      const result =
-        convertor[method as keyof ChangeCaseStringConvertor]('Test String');
+  `(
+    'should convert to $method',
+    ({
+      method,
+      expected,
+    }: {
+      method: keyof ChangeCaseStringConvertor;
+      expected: string;
+    }) => {
+      const result = convertor[method]('Test String');
       expect(result).toBe(expected);
-    }
-  });
+    },
+  );
 });
