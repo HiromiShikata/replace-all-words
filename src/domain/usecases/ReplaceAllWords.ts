@@ -117,6 +117,8 @@ export class ReplaceAllWords {
       );
     }
 
+    result = result.replace(new RegExp(beforeWord, 'g'), afterWord);
+
     return result;
   };
 }
