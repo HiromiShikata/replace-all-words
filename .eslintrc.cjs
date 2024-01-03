@@ -1,3 +1,4 @@
+const fs = require('fs');
 module.exports = {
   extends: [
     'eslint:recommended',
@@ -13,6 +14,7 @@ module.exports = {
   },
   plugins: ['@typescript-eslint', 'no-type-assertion', 'import'],
   root: true,
+  ignorePatterns: fs.readFileSync('.gitignore', 'utf8').split('\n'),
   rules: {
     '@typescript-eslint/require-await': 'off',
     '@typescript-eslint/no-non-null-assertion': 'error',
