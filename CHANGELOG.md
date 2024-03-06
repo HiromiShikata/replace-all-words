@@ -1,3 +1,10 @@
+## [1.1.3](https://github.com/HiromiShikata/replace-all-words/compare/v1.1.2...v1.1.3) (2024-03-06)
+
+
+### Bug Fixes
+
+* keep word already replaced ([b89746c](https://github.com/HiromiShikata/replace-all-words/commit/b89746c505ff4fdd0026126e23be7bbba72d8e8e))
+
 ## [1.1.2](https://github.com/HiromiShikata/replace-all-words/compare/v1.1.1...v1.1.2) (2024-03-06)
 
 
