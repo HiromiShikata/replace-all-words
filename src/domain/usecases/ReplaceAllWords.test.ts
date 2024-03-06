@@ -57,53 +57,38 @@ describe('ReplaceAllWords', () => {
     ]);
   });
 
-  const createUseCaseAndMockRepositories = () => {
-    const fileRepository: Mocked<FileRepository> = {
-      readdirSync: jest.fn(),
-      renameSync: jest.fn(),
-      lstatSync: jest.fn(),
-      statSync: jest.fn(),
-      readFileSync: jest.fn(),
-      writeFileSync: jest.fn(),
-    };
-
-    const stringConvertor: Mocked<StringConvertor> = {
-      camelCase: jest.fn(),
-      snakeCase: jest.fn(),
-      pascalCase: jest.fn(),
-      kebabCase: jest.fn(),
-      paramCase: jest.fn(),
-      screamSnakeCase: jest.fn(),
-      paramCase: jest.fn(),
-    };
-
-    replaceAllWords = new ReplaceAllWords(fileRepository, stringConvertor);
-    jest.resetAllMocks();
-  });
-
   test('run replaces all words in directories, files, and contents', async () => {
     const targetDirectoryPath = 'some/directory';
     const beforeWord = 'oldWord';
     const afterWord = 'newWord';
-    const fileNames = ['oldFile', 'newFile'];
+    const fileNames = ['oldWordFile', 'newWordFile'];
     const fileContent = 'This is some content with the oldWord in it.';
+    const { fileRepository, stringConvertor, useCase } =
+      createUseCaseAndMockRepositories();
 
-    (fileRepository.readdirSync as jest.Mock).mockReturnValue(fileNames);
-    (fileRepository.lstatSync as jest.Mock).mockReturnValue({
-      isDirectory: () => false,
-    });
-    (fileRepository.statSync as jest.Mock).mockReturnValue({
-      isFile: () => true,
-    });
-    (fileRepository.readFileSync as jest.Mock).mockReturnValue(fileContent);
-    (stringConvertor.camelCase as jest.Mock).mockImplementation(
-      (word: string) => word,
-    );
+    fileRepository.readdirSync.mockReturnValue(fileNames);
+    fileRepository.lstatSync.mockReturnValue({ isDirectory: () => false });
+    fileRepository.statSync.mockReturnValue({ isFile: () => true });
+    fileRepository.readFileSync.mockReturnValue(fileContent);
+    stringConvertor.camelCase.mockImplementation((word: string) => word);
 
-    await replaceAllWords.run(targetDirectoryPath, beforeWord, afterWord);
+    await useCase.run(targetDirectoryPath, beforeWord, afterWord);
 
-    expect(fileRepository.renameSync).toBeCalledTimes(fileNames.length);
-    expect(fileRepository.writeFileSync).toBeCalledTimes(1);
+    expect(fileRepository.renameSync.mock.calls).toEqual([
+      ['some/directory/oldWordFile', 'some/directory/newWordFile'],
+    ]);
+    expect(fileRepository.writeFileSync.mock.calls).toEqual([
+      [
+        'some/directory/newWordFile',
+        'This is some content with the newWord in it.',
+        'utf-8',
+      ],
+      [
+        'some/directory/newWordFile',
+        'This is some content with the newWord in it.',
+        'utf-8',
+      ],
+    ]);
   });
 
   describe('convert', () => {
@@ -141,35 +126,51 @@ describe('ReplaceAllWords', () => {
         afterWord: string;
         expected: string;
       }) => {
-        if (!stringConvertor) {
-          throw new Error('stringConvertor is not defined');
-        }
-
-        (stringConvertor.camelCase as jest.Mock).mockImplementation(
-          (word: string) => word,
-        );
-        (stringConvertor.snakeCase as jest.Mock).mockImplementation(
-          (word: string) => word.toLowerCase(),
-        );
-        (stringConvertor.pascalCase as jest.Mock).mockImplementation(
-          (word: string) => word[0].toUpperCase() + word.substr(1),
-        );
-        (stringConvertor.kebabCase as jest.Mock).mockImplementation(
-          (word: string) => word.toLowerCase(),
-        );
-        (stringConvertor.screamSnakeCase as jest.Mock).mockImplementation(
-          (word: string) => word.toUpperCase(),
-        );
-
-        const result = replaceAllWords.convert(
-          inputString,
-          beforeWord,
-          afterWord,
-        );
+        const { useCase } = createUseCaseAndMockRepositories();
+        const result = useCase.convert(inputString, beforeWord, afterWord);
 
         expect(result).toEqual(expected);
       },
     );
+  });
+
+  const createUseCaseAndMockRepositories = () => {
+    const fileRepository: Mocked<FileRepository> = {
+      readdirSync: jest.fn(),
+      renameSync: jest.fn(),
+      lstatSync: jest.fn(),
+      statSync: jest.fn(),
+      readFileSync: jest.fn(),
+      writeFileSync: jest.fn(),
+    };
+
+    const stringConvertor: Mocked<StringConvertor> = {
+      camelCase: jest.fn(),
+      snakeCase: jest.fn(),
+      pascalCase: jest.fn(),
+      kebabCase: jest.fn(),
+      paramCase: jest.fn(),
+      screamSnakeCase: jest.fn(),
+    };
+
+    jest.resetAllMocks();
+    stringConvertor.camelCase.mockImplementation((word: string) => word);
+    stringConvertor.snakeCase.mockImplementation((word: string) =>
+      word.toLowerCase(),
+    );
+    stringConvertor.pascalCase.mockImplementation(
+      (word: string) => word[0].toUpperCase() + word.substr(1),
+    );
+    stringConvertor.paramCase.mockImplementation((word: string) =>
+      word.toLowerCase(),
+    );
+    stringConvertor.kebabCase.mockImplementation((word: string) =>
+      word.toLowerCase(),
+    );
+    stringConvertor.screamSnakeCase.mockImplementation((word: string) =>
+      word.toUpperCase(),
+    );
+    const useCase = new ReplaceAllWords(fileRepository, stringConvertor);
     return {
       fileRepository,
       stringConvertor,
