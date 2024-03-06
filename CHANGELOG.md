@@ -1,3 +1,15 @@
+## [1.1.2](https://github.com/HiromiShikata/replace-all-words/compare/v1.1.1...v1.1.2) (2024-03-06)
+
+
+### Bug Fixes
+
+* **deps:** update dependency change-case-all to v2 ([ae24764](https://github.com/HiromiShikata/replace-all-words/commit/ae24764630b217c2fb14d2573c8d7c152c6d0422))
+* **deps:** update dependency commander to v12 ([4e25a3e](https://github.com/HiromiShikata/replace-all-words/commit/4e25a3ef4c738bc2faa1c21dfcd25f88edb9a6a3))
+* **deps:** update dependency dotenv to v16.4.2 ([e49407f](https://github.com/HiromiShikata/replace-all-words/commit/e49407f7f0ecdff40d9f33995a45527fa07ed78e))
+* **deps:** update dependency dotenv to v16.4.4 ([929a716](https://github.com/HiromiShikata/replace-all-words/commit/929a716bbbbe4b250efe0e07793c3bd6ff5e21b7))
+* replace simple a word ([d78896b](https://github.com/HiromiShikata/replace-all-words/commit/d78896b7b505ebc04f06bc2fe531a1cd40359cc0))
+* replace word to word that has old word ([15ac84a](https://github.com/HiromiShikata/replace-all-words/commit/15ac84a5fc365888fdf4529391605cf728654df8))
+
 ## [1.1.1](https://github.com/HiromiShikata/replace-all-words/compare/v1.1.0...v1.1.1) (2023-06-18)
 
 
