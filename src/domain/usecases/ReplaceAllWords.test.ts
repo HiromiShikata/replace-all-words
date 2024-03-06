@@ -74,6 +74,7 @@ describe('ReplaceAllWords', () => {
       kebabCase: jest.fn(),
       paramCase: jest.fn(),
       screamSnakeCase: jest.fn(),
+      paramCase: jest.fn(),
     };
 
     const useCase: ReplaceAllWords = new ReplaceAllWords(
