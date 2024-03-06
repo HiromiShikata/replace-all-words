@@ -108,25 +108,26 @@ describe('ReplaceAllWords', () => {
 
   describe('convert', () => {
     it.each`
-      inputString                  | beforeWord | afterWord | expected
-      ${'oldWord'}                 | ${'old'}   | ${'new'}  | ${'newWord'}
-      ${'OldWord'}                 | ${'old'}   | ${'new'}  | ${'NewWord'}
-      ${'old_word'}                | ${'old'}   | ${'new'}  | ${'new_word'}
-      ${'OLD_WORD'}                | ${'old'}   | ${'new'}  | ${'NEW_WORD'}
-      ${'old-word'}                | ${'old'}   | ${'new'}  | ${'new-word'}
-      ${'MixedOldWord'}            | ${'old'}   | ${'new'}  | ${'MixedNewWord'}
-      ${'Mixed_old_word'}          | ${'old'}   | ${'new'}  | ${'Mixed_new_word'}
-      ${'MIXED_OLD_WORD'}          | ${'old'}   | ${'new'}  | ${'MIXED_NEW_WORD'}
-      ${'Mixed-old-word'}          | ${'old'}   | ${'new'}  | ${'Mixed-new-word'}
-      ${'oldWord oldWord'}         | ${'old'}   | ${'new'}  | ${'newWord newWord'}
-      ${'OldWord OldWord'}         | ${'old'}   | ${'new'}  | ${'NewWord NewWord'}
-      ${'old_word old_word'}       | ${'old'}   | ${'new'}  | ${'new_word new_word'}
-      ${'OLD_WORD OLD_WORD'}       | ${'old'}   | ${'new'}  | ${'NEW_WORD NEW_WORD'}
-      ${'old-word old-word'}       | ${'old'}   | ${'new'}  | ${'new-word new-word'}
-      ${'MixedOldWord OldWord'}    | ${'old'}   | ${'new'}  | ${'MixedNewWord NewWord'}
-      ${'Mixed_old_word old_word'} | ${'old'}   | ${'new'}  | ${'Mixed_new_word new_word'}
-      ${'MIXED_OLD_WORD OLD_WORD'} | ${'old'}   | ${'new'}  | ${'MIXED_NEW_WORD NEW_WORD'}
-      ${'Mixed-old-word old-word'} | ${'old'}   | ${'new'}  | ${'Mixed-new-word new-word'}
+      inputString                     | beforeWord | afterWord    | expected
+      ${'oldWord'}                    | ${'old'}   | ${'new'}     | ${'newWord'}
+      ${'OldWord'}                    | ${'old'}   | ${'new'}     | ${'NewWord'}
+      ${'old_word'}                   | ${'old'}   | ${'new'}     | ${'new_word'}
+      ${'OLD_WORD'}                   | ${'old'}   | ${'new'}     | ${'NEW_WORD'}
+      ${'old-word'}                   | ${'old'}   | ${'new'}     | ${'new-word'}
+      ${'MixedOldWord'}               | ${'old'}   | ${'new'}     | ${'MixedNewWord'}
+      ${'Mixed_old_word'}             | ${'old'}   | ${'new'}     | ${'Mixed_new_word'}
+      ${'MIXED_OLD_WORD'}             | ${'old'}   | ${'new'}     | ${'MIXED_NEW_WORD'}
+      ${'Mixed-old-word'}             | ${'old'}   | ${'new'}     | ${'Mixed-new-word'}
+      ${'oldWord oldWord'}            | ${'old'}   | ${'new'}     | ${'newWord newWord'}
+      ${'OldWord OldWord'}            | ${'old'}   | ${'new'}     | ${'NewWord NewWord'}
+      ${'old_word old_word'}          | ${'old'}   | ${'new'}     | ${'new_word new_word'}
+      ${'OLD_WORD OLD_WORD'}          | ${'old'}   | ${'new'}     | ${'NEW_WORD NEW_WORD'}
+      ${'old-word old-word'}          | ${'old'}   | ${'new'}     | ${'new-word new-word'}
+      ${'MixedOldWord OldWord'}       | ${'old'}   | ${'new'}     | ${'MixedNewWord NewWord'}
+      ${'Mixed_old_word old_word'}    | ${'old'}   | ${'new'}     | ${'Mixed_new_word new_word'}
+      ${'MIXED_OLD_WORD OLD_WORD'}    | ${'old'}   | ${'new'}     | ${'MIXED_NEW_WORD NEW_WORD'}
+      ${'Mixed-old-word old-word'}    | ${'old'}   | ${'new'}     | ${'Mixed-new-word new-word'}
+      ${'Includes-old-word old-word'} | ${'old'}   | ${'old-new'} | ${'Includes-old-new-word old-new-word'}
     `(
       'converts $inputString from $beforeWord to $afterWord, result should be $expected',
       ({
