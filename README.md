@@ -1,6 +1,6 @@
 # replace-all-words 🔄
 
-[![CircleCI](https://dl.circleci.com/status-badge/img/gh/HiromiShikata/replace-all-words/tree/main.svg?style=svg)](https://dl.circleci.com/status-badge/redirect/gh/HiromiShikata/replace-all-words/tree/main)
+[![Test](https://github.com/HiromiShikata/replace-all-words/actions/workflows/test.yml/badge.svg)](https://github.com/HiromiShikata/replace-all-words/actions/workflows/test.yml)
 [![code style: prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg?style=flat-square)](https://github.com/prettier/prettier)
 [![semantic-release: angular](https://img.shields.io/badge/semantic--release-angular-e10079?logo=semantic-release)](https://github.com/semantic-release/semantic-release)
 
