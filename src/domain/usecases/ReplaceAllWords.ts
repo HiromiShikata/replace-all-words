@@ -99,8 +99,10 @@ export class ReplaceAllWords {
 
     let result = str;
     cases.forEach((convertor, index: number) => {
-      const before = convertor(beforeWord);
       const after = uniqueMarker(afterWord, index);
+      const keep = convertor(afterWord);
+      result = result.replace(new RegExp(keep, 'g'), after);
+      const before = convertor(beforeWord);
       result = result.replace(new RegExp(before, 'g'), after);
     });
     cases.forEach((convertor, index: number) => {
