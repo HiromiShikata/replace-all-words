@@ -1,6 +1,7 @@
 import { FileRepository } from './adapter-interfaces/FileRepository';
 import { StringConvertor } from './adapter-interfaces/StringConvertor';
 import * as path from 'path';
+import * as crypto from 'crypto';
 
 export class ReplaceAllWords {
   constructor(
@@ -80,44 +81,33 @@ export class ReplaceAllWords {
     return this.convert(content, beforeWord, afterWord);
   };
   convert = (str: string, beforeWord: string, afterWord: string): string => {
+    const uniqueMarker = (word: string, index: number): string => {
+      const hash = crypto
+        .createHash('sha256')
+        .update(word + index.toString())
+        .digest('hex');
+      return `__${hash}__`;
+    };
+    const cases: ((arg0: string) => string)[] = [
+      (input: string) => this.stringConvertor.camelCase(input),
+      (input: string) => this.stringConvertor.snakeCase(input),
+      (input: string) => this.stringConvertor.pascalCase(input),
+      (input: string) => this.stringConvertor.paramCase(input),
+      (input: string) => this.stringConvertor.kebabCase(input),
+      (input: string) => this.stringConvertor.screamSnakeCase(input),
+    ];
+
     let result = str;
-
-    if (result.includes(this.stringConvertor.camelCase(beforeWord))) {
-      result = result.replace(
-        new RegExp(this.stringConvertor.camelCase(beforeWord), 'g'),
-        this.stringConvertor.camelCase(afterWord),
-      );
-    }
-
-    if (result.includes(this.stringConvertor.snakeCase(beforeWord))) {
-      result = result.replace(
-        new RegExp(this.stringConvertor.snakeCase(beforeWord), 'g'),
-        this.stringConvertor.snakeCase(afterWord),
-      );
-    }
-
-    if (result.includes(this.stringConvertor.pascalCase(beforeWord))) {
-      result = result.replace(
-        new RegExp(this.stringConvertor.pascalCase(beforeWord), 'g'),
-        this.stringConvertor.pascalCase(afterWord),
-      );
-    }
-
-    if (result.includes(this.stringConvertor.paramCase(beforeWord))) {
-      result = result.replace(
-        new RegExp(this.stringConvertor.paramCase(beforeWord), 'g'),
-        this.stringConvertor.kebabCase(afterWord),
-      );
-    }
-
-    if (result.includes(this.stringConvertor.screamSnakeCase(beforeWord))) {
-      result = result.replace(
-        new RegExp(this.stringConvertor.screamSnakeCase(beforeWord), 'g'),
-        this.stringConvertor.screamSnakeCase(afterWord),
-      );
-    }
-
-    result = result.replace(new RegExp(beforeWord, 'g'), afterWord);
+    cases.forEach((convertor, index: number) => {
+      const before = convertor(beforeWord);
+      const after = uniqueMarker(afterWord, index);
+      result = result.replace(new RegExp(before, 'g'), after);
+    });
+    cases.forEach((convertor, index: number) => {
+      const maker = uniqueMarker(afterWord, index);
+      const after = convertor(afterWord);
+      result = result.replace(new RegExp(maker, 'g'), after);
+    });
 
     return result;
   };

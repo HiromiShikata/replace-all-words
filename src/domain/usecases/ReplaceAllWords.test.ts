@@ -57,6 +57,83 @@ describe('ReplaceAllWords', () => {
     ]);
   });
 
+  test('run replaces all words in directories, files, and contents', async () => {
+    const targetDirectoryPath = 'some/directory';
+    const beforeWord = 'oldWord';
+    const afterWord = 'newWord';
+    const fileNames = ['oldWordFile', 'newWordFile'];
+    const fileContent = 'This is some content with the oldWord in it.';
+    const { fileRepository, stringConvertor, useCase } =
+      createUseCaseAndMockRepositories();
+
+    fileRepository.readdirSync.mockReturnValue(fileNames);
+    fileRepository.lstatSync.mockReturnValue({ isDirectory: () => false });
+    fileRepository.statSync.mockReturnValue({ isFile: () => true });
+    fileRepository.readFileSync.mockReturnValue(fileContent);
+    stringConvertor.camelCase.mockImplementation((word: string) => word);
+
+    await useCase.run(targetDirectoryPath, beforeWord, afterWord);
+
+    expect(fileRepository.renameSync.mock.calls).toEqual([
+      ['some/directory/oldWordFile', 'some/directory/newWordFile'],
+    ]);
+    expect(fileRepository.writeFileSync.mock.calls).toEqual([
+      [
+        'some/directory/newWordFile',
+        'This is some content with the newWord in it.',
+        'utf-8',
+      ],
+      [
+        'some/directory/newWordFile',
+        'This is some content with the newWord in it.',
+        'utf-8',
+      ],
+    ]);
+  });
+
+  describe('convert', () => {
+    it.each`
+      inputString                     | beforeWord | afterWord    | expected
+      ${'oldWord'}                    | ${'old'}   | ${'new'}     | ${'newWord'}
+      ${'OldWord'}                    | ${'old'}   | ${'new'}     | ${'NewWord'}
+      ${'old_word'}                   | ${'old'}   | ${'new'}     | ${'new_word'}
+      ${'OLD_WORD'}                   | ${'old'}   | ${'new'}     | ${'NEW_WORD'}
+      ${'old-word'}                   | ${'old'}   | ${'new'}     | ${'new-word'}
+      ${'MixedOldWord'}               | ${'old'}   | ${'new'}     | ${'MixedNewWord'}
+      ${'Mixed_old_word'}             | ${'old'}   | ${'new'}     | ${'Mixed_new_word'}
+      ${'MIXED_OLD_WORD'}             | ${'old'}   | ${'new'}     | ${'MIXED_NEW_WORD'}
+      ${'Mixed-old-word'}             | ${'old'}   | ${'new'}     | ${'Mixed-new-word'}
+      ${'oldWord oldWord'}            | ${'old'}   | ${'new'}     | ${'newWord newWord'}
+      ${'OldWord OldWord'}            | ${'old'}   | ${'new'}     | ${'NewWord NewWord'}
+      ${'old_word old_word'}          | ${'old'}   | ${'new'}     | ${'new_word new_word'}
+      ${'OLD_WORD OLD_WORD'}          | ${'old'}   | ${'new'}     | ${'NEW_WORD NEW_WORD'}
+      ${'old-word old-word'}          | ${'old'}   | ${'new'}     | ${'new-word new-word'}
+      ${'MixedOldWord OldWord'}       | ${'old'}   | ${'new'}     | ${'MixedNewWord NewWord'}
+      ${'Mixed_old_word old_word'}    | ${'old'}   | ${'new'}     | ${'Mixed_new_word new_word'}
+      ${'MIXED_OLD_WORD OLD_WORD'}    | ${'old'}   | ${'new'}     | ${'MIXED_NEW_WORD NEW_WORD'}
+      ${'Mixed-old-word old-word'}    | ${'old'}   | ${'new'}     | ${'Mixed-new-word new-word'}
+      ${'Includes-old-word old-word'} | ${'old'}   | ${'old-new'} | ${'Includes-old-new-word old-new-word'}
+    `(
+      'converts $inputString from $beforeWord to $afterWord, result should be $expected',
+      ({
+        inputString,
+        beforeWord,
+        afterWord,
+        expected,
+      }: {
+        inputString: string;
+        beforeWord: string;
+        afterWord: string;
+        expected: string;
+      }) => {
+        const { useCase } = createUseCaseAndMockRepositories();
+        const result = useCase.convert(inputString, beforeWord, afterWord);
+
+        expect(result).toEqual(expected);
+      },
+    );
+  });
+
   const createUseCaseAndMockRepositories = () => {
     const fileRepository: Mocked<FileRepository> = {
       readdirSync: jest.fn(),
@@ -76,10 +153,24 @@ describe('ReplaceAllWords', () => {
       screamSnakeCase: jest.fn(),
     };
 
-    const useCase: ReplaceAllWords = new ReplaceAllWords(
-      fileRepository,
-      stringConvertor,
+    jest.resetAllMocks();
+    stringConvertor.camelCase.mockImplementation((word: string) => word);
+    stringConvertor.snakeCase.mockImplementation((word: string) =>
+      word.toLowerCase(),
     );
+    stringConvertor.pascalCase.mockImplementation(
+      (word: string) => word[0].toUpperCase() + word.substr(1),
+    );
+    stringConvertor.paramCase.mockImplementation((word: string) =>
+      word.toLowerCase(),
+    );
+    stringConvertor.kebabCase.mockImplementation((word: string) =>
+      word.toLowerCase(),
+    );
+    stringConvertor.screamSnakeCase.mockImplementation((word: string) =>
+      word.toUpperCase(),
+    );
+    const useCase = new ReplaceAllWords(fileRepository, stringConvertor);
     return {
       fileRepository,
       stringConvertor,
