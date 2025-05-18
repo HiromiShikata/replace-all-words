@@ -1,3 +1,10 @@
+## [1.1.8](https://github.com/HiromiShikata/replace-all-words/compare/v1.1.7...v1.1.8) (2025-05-18)
+
+
+### Bug Fixes
+
+* **deps:** update dependency commander to v14 ([01ee947](https://github.com/HiromiShikata/replace-all-words/commit/01ee9471c096f2d7ce8f11bf2ce1c03329bf9f12))
+
 ## [1.1.7](https://github.com/HiromiShikata/replace-all-words/compare/v1.1.6...v1.1.7) (2025-04-19)
 
 
