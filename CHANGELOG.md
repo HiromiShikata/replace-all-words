@@ -1,3 +1,10 @@
+## [1.1.9](https://github.com/HiromiShikata/replace-all-words/compare/v1.1.8...v1.1.9) (2025-06-28)
+
+
+### Bug Fixes
+
+* **deps:** update all non-major dependencies ([ae44276](https://github.com/HiromiShikata/replace-all-words/commit/ae442768e96e0f8a15646785b89826c63c2929a3))
+
 ## [1.1.8](https://github.com/HiromiShikata/replace-all-words/compare/v1.1.7...v1.1.8) (2025-05-18)
 
 
