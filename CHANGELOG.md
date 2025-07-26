@@ -1,3 +1,10 @@
+## [1.1.13](https://github.com/HiromiShikata/replace-all-words/compare/v1.1.12...v1.1.13) (2025-07-26)
+
+
+### Bug Fixes
+
+* **deps:** update dependency dotenv to v17.2.1 ([a3f9ad0](https://github.com/HiromiShikata/replace-all-words/commit/a3f9ad00ce6e4d886351b2e993480af129b6672e))
+
 ## [1.1.12](https://github.com/HiromiShikata/replace-all-words/compare/v1.1.11...v1.1.12) (2025-07-12)
 
 
