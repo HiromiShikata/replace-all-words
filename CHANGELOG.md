@@ -1,3 +1,10 @@
+## [1.1.15](https://github.com/HiromiShikata/replace-all-words/compare/v1.1.14...v1.1.15) (2025-09-13)
+
+
+### Bug Fixes
+
+* **deps:** update dependency commander to v14.0.1 ([d385e7d](https://github.com/HiromiShikata/replace-all-words/commit/d385e7dd74cada425ff53c214ac88a5560d4c3c8))
+
 ## [1.1.14](https://github.com/HiromiShikata/replace-all-words/compare/v1.1.13...v1.1.14) (2025-09-06)
 
 
