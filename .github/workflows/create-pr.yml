@@ -16,8 +16,23 @@ jobs:
         id: branch_name
         run: echo "branch=${GITHUB_REF#refs/heads/}" >> "$GITHUB_OUTPUT"
 
+      - name: Check if PR exists
+        id: check_pr
+        run: |
+          BRANCH="${{ steps.branch_name.outputs.branch }}"
+          PR_NUMBER=$(curl -s -H "Authorization: token ${{ secrets.GH_TOKEN || github.token }}" \
+            "https://api.github.com/repos/${{ github.repository }}/pulls?head=${{ github.repository_owner }}:${BRANCH}&base=main&state=open" \
+            | jq -r '.[0].number // empty')
+          echo "pr_number=${PR_NUMBER}" >> "$GITHUB_OUTPUT"
+          if [ -n "$PR_NUMBER" ]; then
+            echo "pr_exists=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "pr_exists=false" >> "$GITHUB_OUTPUT"
+          fi
+
       - name: Create Pull Request
         id: create_pr
+        if: steps.check_pr.outputs.pr_exists != 'true'
         uses: repo-sync/pull-request@v2
         with:
           github_token: ${{ secrets.GH_TOKEN }}
