@@ -56,7 +56,7 @@
     "jest-junit": "^16.0.0",
     "prettier": "^3.0.0",
     "ts-jest": "^29.1.0",
-    "typescript": "^5.1.3"
+    "typescript": "^6.0.0"
   },
   "dependencies": {
     "change-case-all": "^2.0.0",
