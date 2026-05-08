@@ -2,7 +2,7 @@
   "compilerOptions": {
     "target": "es2020",
     "module": "commonjs",
-    "moduleResolution": "Node",
+    "moduleResolution": "node10",
     "esModuleInterop": true,
     "outDir": "./dist",
     "sourceMap": true,
