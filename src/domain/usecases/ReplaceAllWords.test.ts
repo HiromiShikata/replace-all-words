@@ -25,8 +25,8 @@ describe('ReplaceAllWords', () => {
 
     await useCase.run('targetDirectory', 'old', 'new');
 
-    expect(fileRepository.readdirSync).toBeCalledWith('targetDirectory');
-    expect(fileRepository.lstatSync).toBeCalledTimes(files.length);
+    expect(fileRepository.readdirSync).toHaveBeenCalledWith('targetDirectory');
+    expect(fileRepository.lstatSync).toHaveBeenCalledTimes(files.length);
     expect(fileRepository.readFileSync.mock.calls).toEqual([
       ['targetDirectory/newFile1.txt', 'utf-8'],
       ['targetDirectory/newFile2.txt', 'utf-8'],
