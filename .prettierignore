@@ -20,3 +20,4 @@ LICENSE
 *.diff
 *.log
 CODEOWNERS
+.npmrc
