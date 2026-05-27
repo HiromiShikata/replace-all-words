@@ -17,6 +17,9 @@ jobs:
   automerge:
     runs-on: ubuntu-latest
     steps:
+      - uses: step-security/harden-runner@v2
+        with:
+          egress-policy: audit
       - uses: reitermarkus/automerge@634d0a4b51134c163eee182ac9aa79133eb33e8d # v2.8.0
         with:
           token: ${{ secrets.GH_TOKEN }}
