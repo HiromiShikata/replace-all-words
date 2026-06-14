@@ -60,7 +60,7 @@
   },
   "dependencies": {
     "change-case-all": "^2.0.0",
-    "commander": "^14.0.0",
+    "commander": "^15.0.0",
     "dotenv": "^17.0.0"
   }
 }
