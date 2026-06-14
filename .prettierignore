@@ -21,3 +21,4 @@ LICENSE
 *.log
 CODEOWNERS
 .npmrc
+*.toml
