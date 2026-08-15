@@ -41,8 +41,8 @@
   },
   "homepage": "https://github.com/HiromiShikata/replace-all-words#readme",
   "devDependencies": {
-    "@semantic-release/changelog": "^6.0.3",
-    "@semantic-release/git": "^10.0.1",
+    "@semantic-release/changelog": "^7.0.0",
+    "@semantic-release/git": "^11.0.0",
     "@types/commander": "^2.12.2",
     "@types/jest": "^30.0.0",
     "@typescript-eslint/eslint-plugin": "^8.58.0",
