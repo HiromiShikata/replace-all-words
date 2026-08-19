@@ -2,7 +2,7 @@
   "compilerOptions": {
     "target": "es2020",
     "module": "commonjs",
-    "moduleResolution": "node10",
+    "moduleResolution": "bundler",
     "esModuleInterop": true,
     "outDir": "./dist",
     "sourceMap": true,
@@ -11,7 +11,9 @@
     "skipLibCheck": true,
     "noFallthroughCasesInSwitch": true,
     "types": ["jest", "node"],
-    "ignoreDeprecations": "6.0"
+    "paths": {
+      "change-case-all": ["./node_modules/change-case-all/dist/index.d.ts"]
+    }
   },
   "include": ["src"],
   "exclude": ["node_modules", "**/__tests__/*"]
