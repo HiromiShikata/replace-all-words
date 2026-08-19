@@ -15,17 +15,27 @@ var __setModuleDefault = (this && this.__setModuleDefault) || (Object.create ? (
 }) : function(o, v) {
     o["default"] = v;
 });
-var __importStar = (this && this.__importStar) || function (mod) {
-    if (mod && mod.__esModule) return mod;
-    var result = {};
-    if (mod != null) for (var k in mod) if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
-    __setModuleDefault(result, mod);
-    return result;
-};
+var __importStar = (this && this.__importStar) || (function () {
+    var ownKeys = function(o) {
+        ownKeys = Object.getOwnPropertyNames || function (o) {
+            var ar = [];
+            for (var k in o) if (Object.prototype.hasOwnProperty.call(o, k)) ar[ar.length] = k;
+            return ar;
+        };
+        return ownKeys(o);
+    };
+    return function (mod) {
+        if (mod && mod.__esModule) return mod;
+        var result = {};
+        if (mod != null) for (var k = ownKeys(mod), i = 0; i < k.length; i++) if (k[i] !== "default") __createBinding(result, mod, k[i]);
+        __setModuleDefault(result, mod);
+        return result;
+    };
+})();
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.ReplaceAllWords = void 0;
 const path = __importStar(require("path"));
-const change_case_all_1 = require("change-case-all");
+const crypto = __importStar(require("crypto"));
 class ReplaceAllWords {
     constructor(fileRepository, stringConvertor) {
         this.fileRepository = fileRepository;
@@ -76,22 +86,34 @@ class ReplaceAllWords {
             return this.convert(content, beforeWord, afterWord);
         };
         this.convert = (str, beforeWord, afterWord) => {
+            const uniqueMarker = (word, index) => {
+                const hash = crypto
+                    .createHash('sha256')
+                    .update(word + index.toString())
+                    .digest('hex');
+                return `__${hash}__`;
+            };
+            const cases = [
+                (input) => this.stringConvertor.camelCase(input),
+                (input) => this.stringConvertor.snakeCase(input),
+                (input) => this.stringConvertor.pascalCase(input),
+                (input) => this.stringConvertor.paramCase(input),
+                (input) => this.stringConvertor.kebabCase(input),
+                (input) => this.stringConvertor.screamSnakeCase(input),
+            ];
             let result = str;
-            if (result.includes(this.stringConvertor.camelCase(beforeWord))) {
-                result = result.replace(new RegExp(this.stringConvertor.camelCase(beforeWord), 'g'), this.stringConvertor.camelCase(afterWord));
-            }
-            if (result.includes(this.stringConvertor.snakeCase(beforeWord))) {
-                result = result.replace(new RegExp(this.stringConvertor.snakeCase(beforeWord), 'g'), this.stringConvertor.snakeCase(afterWord));
-            }
-            if (result.includes(this.stringConvertor.pascalCase(beforeWord))) {
-                result = result.replace(new RegExp(this.stringConvertor.pascalCase(beforeWord), 'g'), this.stringConvertor.pascalCase(afterWord));
-            }
-            if (result.includes((0, change_case_all_1.paramCase)(beforeWord))) {
-                result = result.replace(new RegExp((0, change_case_all_1.paramCase)(beforeWord), 'g'), this.stringConvertor.kebabCase(afterWord));
-            }
-            if (result.includes(this.stringConvertor.screamSnakeCase(beforeWord))) {
-                result = result.replace(new RegExp(this.stringConvertor.screamSnakeCase(beforeWord), 'g'), this.stringConvertor.screamSnakeCase(afterWord));
-            }
+            cases.forEach((convertor, index) => {
+                const after = uniqueMarker(afterWord, index);
+                const keep = convertor(afterWord);
+                result = result.replace(new RegExp(keep, 'g'), after);
+                const before = convertor(beforeWord);
+                result = result.replace(new RegExp(before, 'g'), after);
+            });
+            cases.forEach((convertor, index) => {
+                const maker = uniqueMarker(afterWord, index);
+                const after = convertor(afterWord);
+                result = result.replace(new RegExp(maker, 'g'), after);
+            });
             return result;
         };
     }

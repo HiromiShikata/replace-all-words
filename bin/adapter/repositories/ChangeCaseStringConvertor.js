@@ -19,6 +19,9 @@ class ChangeCaseStringConvertor {
         this.screamSnakeCase = (str) => {
             return (0, change_case_all_1.snakeCase)(str).toUpperCase();
         };
+        this.paramCase = (str) => {
+            return (0, change_case_all_1.paramCase)(str);
+        };
     }
 }
 exports.ChangeCaseStringConvertor = ChangeCaseStringConvertor;
