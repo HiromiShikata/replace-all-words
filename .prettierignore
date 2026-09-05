@@ -2,8 +2,7 @@
 .gitignore
 .prettierignore
 .gitkeep
-
-
+*.sh
 .idea
 reports
 dist
@@ -20,5 +19,3 @@ LICENSE
 *.diff
 *.log
 CODEOWNERS
-.npmrc
-*.toml
