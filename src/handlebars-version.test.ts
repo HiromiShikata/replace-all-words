@@ -58,9 +58,7 @@ const readResolvedHandlebarsVersion = (packageLockPath: string): string => {
   }
   const handlebarsEntry = packages['node_modules/handlebars'];
   if (!isRecord(handlebarsEntry)) {
-    throw new Error(
-      'package-lock.json has no "node_modules/handlebars" entry',
-    );
+    throw new Error('package-lock.json has no "node_modules/handlebars" entry');
   }
   const version = handlebarsEntry['version'];
   if (typeof version !== 'string') {
