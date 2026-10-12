@@ -105,3 +105,18 @@ describe('dependency versions pinned in package-lock.json', () => {
     },
   );
 });
+
+describe('isVersionAtLeast', () => {
+  test.each([
+    { actualVersion: '1.0.0', minimumVersion: '2.0.0', expected: false },
+    { actualVersion: '8.70.0', minimumVersion: '8.71.0', expected: false },
+    { actualVersion: '2.0.0', minimumVersion: '1.0.0', expected: true },
+    { actualVersion: '8.71.0', minimumVersion: '8.70.0', expected: true },
+    { actualVersion: '8.71.0', minimumVersion: '8.71.0', expected: true },
+  ])(
+    'isVersionAtLeast("$actualVersion", "$minimumVersion") returns $expected',
+    ({ actualVersion, minimumVersion, expected }) => {
+      expect(isVersionAtLeast(actualVersion, minimumVersion)).toBe(expected);
+    },
+  );
+});
