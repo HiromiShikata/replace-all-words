@@ -133,6 +133,31 @@ describe('ReplaceAllWords', () => {
         expect(result).toEqual(expected);
       },
     );
+
+    test('converts only the literal beforeWord substring, not a regex metacharacter pattern match', () => {
+      const { useCase } = createUseCaseAndMockRepositories();
+
+      const result = useCase.convert(
+        'start a.c middle aXc end',
+        'a.c',
+        'NEWWORD',
+      );
+
+      expect(result).toEqual('start NEWWORD middle aXc end');
+    });
+
+    test('does not hang when beforeWord contains a catastrophic-backtracking regex pattern', () => {
+      const { useCase } = createUseCaseAndMockRepositories();
+      const str = 'a'.repeat(26) + '!';
+      const beforeWord = '^(a+)+$';
+      const afterWord = 'NEWWORD';
+
+      const startTime = Date.now();
+      useCase.convert(str, beforeWord, afterWord);
+      const elapsedMilliseconds = Date.now() - startTime;
+
+      expect(elapsedMilliseconds).toBeLessThan(1000);
+    }, 10000);
   });
 
   const createUseCaseAndMockRepositories = () => {

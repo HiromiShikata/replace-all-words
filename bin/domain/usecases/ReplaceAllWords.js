@@ -85,6 +85,7 @@ class ReplaceAllWords {
         this.replaceWordInContent = (content, beforeWord, afterWord) => {
             return this.convert(content, beforeWord, afterWord);
         };
+        this.escapeRegExpSpecialCharacters = (rawText) => rawText.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
         this.convert = (str, beforeWord, afterWord) => {
             const uniqueMarker = (word, index) => {
                 const hash = crypto
@@ -105,14 +106,14 @@ class ReplaceAllWords {
             cases.forEach((convertor, index) => {
                 const after = uniqueMarker(afterWord, index);
                 const keep = convertor(afterWord);
-                result = result.replace(new RegExp(keep, 'g'), after);
+                result = result.replace(new RegExp(this.escapeRegExpSpecialCharacters(keep), 'g'), after);
                 const before = convertor(beforeWord);
-                result = result.replace(new RegExp(before, 'g'), after);
+                result = result.replace(new RegExp(this.escapeRegExpSpecialCharacters(before), 'g'), after);
             });
             cases.forEach((convertor, index) => {
                 const maker = uniqueMarker(afterWord, index);
                 const after = convertor(afterWord);
-                result = result.replace(new RegExp(maker, 'g'), after);
+                result = result.replace(new RegExp(this.escapeRegExpSpecialCharacters(maker), 'g'), after);
             });
             return result;
         };
