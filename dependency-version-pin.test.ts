@@ -76,14 +76,18 @@ type DependencyVersionPin = {
 const dependencyVersionPins: DependencyVersionPin[] = [
   {
     packageName: '@typescript-eslint/eslint-plugin',
-    minimumVersion: '8.71.0',
+    minimumVersion: '8.71.1',
   },
-  { packageName: '@typescript-eslint/parser', minimumVersion: '8.71.0' },
-  { packageName: 'dotenv', minimumVersion: '18.0.5' },
+  { packageName: '@typescript-eslint/parser', minimumVersion: '8.71.1' },
+  {
+    packageName: 'conventional-changelog-conventionalcommits',
+    minimumVersion: '10.4.1',
+  },
+  { packageName: 'dotenv', minimumVersion: '18.0.7' },
   { packageName: 'eslint', minimumVersion: '10.12.0' },
-  { packageName: 'prettier', minimumVersion: '3.9.9' },
+  { packageName: 'prettier', minimumVersion: '3.9.10' },
   { packageName: 'ts-jest', minimumVersion: '29.4.14' },
-  { packageName: 'typescript-eslint', minimumVersion: '8.71.0' },
+  { packageName: 'typescript-eslint', minimumVersion: '8.71.1' },
 ];
 
 describe('dependency versions pinned in package-lock.json', () => {
